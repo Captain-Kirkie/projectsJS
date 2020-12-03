@@ -1,15 +1,28 @@
 //https://reactjs.org/tutorial/tutorial.html
-// npm start
+
+//  npm start
 //  http://localhost:3000
 
 import React from "react";
 import ReactDOM from "react-dom";
 
-console.log("Figure it out");
+/*
+react components: square, board game
+*/
+//Passed a prop, properties, data that gets passed
 
 class Square extends React.Component {
   render() {
-    return <button className="square">{this.props.value}</button>;
+    return (
+      <button
+        className="square"
+        onClick={function () {
+          alert("click");
+        }}
+      >
+        {this.props.value}
+      </button>
+    );
   }
 }
 
@@ -61,5 +74,5 @@ class Game extends React.Component {
 }
 
 // ========================================
-
+//This is calling game rendering?
 ReactDOM.render(<Game />, document.getElementById("root"));
