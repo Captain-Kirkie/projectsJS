@@ -1,17 +1,17 @@
 import { AwesomeButton } from "react-awesome-button";
 import AwesomeButtonStyles from "react-awesome-button/src/styles/styles.scss";
 
-function Button() {
+function Button(props) {
     return (
         <AwesomeButton
             cssModule={AwesomeButtonStyles}
             type="primary"
-            onPress={() => {
-                // do something
+            onPress={(event, release) => {
+                // do a sync/async task then call `release()`
+                console.log("Authenticate");
             }}
-        >
-            Button
-        </AwesomeButton>
+            active={true}
+        ></AwesomeButton>
     );
 }
 

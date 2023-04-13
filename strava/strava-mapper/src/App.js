@@ -1,14 +1,34 @@
 import "./App.css";
 import * as d3 from "d3";
 import USAMap from "react-usa-map";
-import Button from "./Button";
+import { AwesomeButton } from "react-awesome-button";
+import AwesomeButtonStyles from "react-awesome-button/src/styles/styles.scss";
 
 function App() {
     d3.selectAll("div").style("color", "blue");
     return (
         <div className="App">
             <USAMap onClick={() => console.log("hello world")} />
-            <Button>Hello</Button>
+            <AwesomeButton
+                cssModule={AwesomeButtonStyles}
+                type="primary"
+                onPress={(event, release) => {
+                    // do a sync/async task then call `release()`
+                    console.log("Authenticate");
+                }}
+            >
+                Authenticate
+            </AwesomeButton>
+            <AwesomeButton
+                cssModule={AwesomeButtonStyles}
+                type="secondary"
+                onPress={(event, release) => {
+                    // do a sync/async task then call `release()`
+                    console.log("Authenticate");
+                }}
+            >
+                Refresh
+            </AwesomeButton>
         </div>
     );
 }
