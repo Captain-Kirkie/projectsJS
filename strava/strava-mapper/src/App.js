@@ -2,9 +2,10 @@ import "./App.css";
 import * as d3 from "d3";
 import { AwesomeButton } from "react-awesome-button";
 import AwesomeButtonStyles from "react-awesome-button/src/styles/styles.scss";
-import { authenticate } from "./AuthUtils";
-import GoogleMapWrapper from "./GoogleMapWrapper";
 
+import GoogleMapWrapper from "./GoogleMapWrapper";
+import { getAccessToken, AuthenticateStravaWithOAuth } from "./StravaUtils";
+// https://samuelkraft.com/blog/strava-api-with-nextjs
 function App() {
     return (
         <div className="App">
@@ -18,7 +19,7 @@ function App() {
                 onPress={(event, release) => {
                     // do a sync/async task then call `release()`
                     console.log("Authenticate");
-                    authenticate();
+                    getAccessToken();
                 }}
             >
                 Authenticate
@@ -27,10 +28,10 @@ function App() {
                 cssModule={AwesomeButtonStyles}
                 type="secondary"
                 onPress={(event, release) => {
-                    // do a sync/async task then call `release()`
+                    AuthenticateStravaWithOAuth();
                 }}
             >
-                Refresh
+                Log in with OAuth
             </AwesomeButton>
         </div>
     );
