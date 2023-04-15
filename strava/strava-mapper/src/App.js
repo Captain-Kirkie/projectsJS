@@ -8,7 +8,10 @@ import GoogleMapWrapper from "./GoogleMapWrapper";
 function App() {
     return (
         <div className="App">
-            <GoogleMapWrapper />
+            <div className="center-horiz">
+                <GoogleMapWrapper />
+            </div>
+
             <AwesomeButton
                 cssModule={AwesomeButtonStyles}
                 type="primary"

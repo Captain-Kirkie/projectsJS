@@ -46,3 +46,15 @@
     height: 100%;
     width: 100%;
 }
+
+.map-wrapper {
+    height: 75vw;
+    width: 100vw;
+}
+
+.center-horiz {
+    border: 0.05em solid red;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

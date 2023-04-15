@@ -8,7 +8,7 @@ function GoogleMapWrapper() {
     const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
 
     return (
-        <div className="App">
+        <div className="map-wrapper">
             {!isLoaded ? (
                 <h1>Loading...</h1>
             ) : (
