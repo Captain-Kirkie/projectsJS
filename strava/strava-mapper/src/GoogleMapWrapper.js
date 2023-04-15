@@ -5,7 +5,9 @@ function GoogleMapWrapper() {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     });
-    const center = useMemo(() => ({ lat: 18.52043, lng: 73.856743 }), []);
+    const lat = 40.737794685718875;
+    const long = -111.8454212228403;
+    const center = useMemo(() => ({ lat: lat, lng: long }), []);
 
     return (
         <div className="map-wrapper">
