@@ -5,10 +5,12 @@ function GoogleMapWrapper() {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
     });
-    const lat = 40.737794685718875;
-    const long = -111.8454212228403;
-    const center = useMemo(() => ({ lat: lat, lng: long }), []);
-
+    const slcLat = 40.748054511597054;
+    const slcLong = -111.95898378502793;
+    const homeLat = 40.737794685718875;
+    const homeLong = -111.8454212228403;
+    const center = useMemo(() => ({ lat: slcLat, lng: slcLong }), []);
+    const home = useMemo(() => ({ lat: homeLat, lng: homeLong }), []);
     return (
         <div className="map-wrapper">
             {!isLoaded ? (
@@ -18,7 +20,9 @@ function GoogleMapWrapper() {
                     mapContainerClassName="map-container"
                     center={center}
                     zoom={10}
-                />
+                >
+                    <Marker position={{ lat: homeLat, lng: homeLong }} />
+                </GoogleMap>
             )}
         </div>
     );
