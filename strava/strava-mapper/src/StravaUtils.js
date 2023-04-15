@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 // const strava = require("strava-v3");
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -34,11 +35,26 @@ const AuthenticateStravaWithOAuth = () => {
     window.location.replace(oAuthUrl);
 };
 
+// axchange one time code for access token
+// curl -X POST https://www.strava.com/api/v3/oauth/token
+
+//   -d client_id=ReplaceWithClientID \
+
+//   -d client_secret=ReplaceWithClientSecret \
+
+//   -d code=ReplaceWithCode \
+
+//   -d grant_type=authorization_code\
 const getAccessToken = async () => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
+    console.log(code);
+
     const body = JSON.stringify({
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,
         refresh_token: REFRESH_TOKEN,
+        code: code,
         grant_type: "refresh_token",
     });
 
