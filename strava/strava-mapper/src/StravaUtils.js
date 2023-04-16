@@ -26,6 +26,7 @@ const AuthenticateStravaWithOAuth = () => {
     window.location.replace(oAuthUrl);
 };
 
+// class StravaManager {
 const getAllActivities = async () => {
     const test = "https://www.strava.com/api/v3/athletes/62304200/activities";
     const response = await fetch(test, {
@@ -41,6 +42,7 @@ const getAllActivities = async () => {
     console.log(json);
     return json;
 };
+// }
 
 // axchange one time code for access token
 // curl -X POST https://www.strava.com/api/v3/oauth/token
@@ -49,6 +51,13 @@ const getAllActivities = async () => {
 //   -d code=ReplaceWithCode \
 //   -d grant_type=authorization_code\
 const getAccessToken = async () => {
+    const TOKEN_KEY = "oauth_access_token";
+
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!!token) {
+        return token;
+    }
+
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
     console.log(code);
@@ -69,10 +78,10 @@ const getAccessToken = async () => {
         },
         body,
     });
-
+    debugger;
     const json = await response.json();
     console.log(json);
-    OAUTH_ACCESS_TOKEN = json;
+    localStorage.setItem(TOKEN_KEY, json); // this is bad...
     return json;
 };
 
