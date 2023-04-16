@@ -10,7 +10,6 @@ function GoogleMapWrapper() {
     const homeLat = 40.737794685718875;
     const homeLong = -111.8454212228403;
     const center = useMemo(() => ({ lat: slcLat, lng: slcLong }), []);
-    const home = useMemo(() => ({ lat: homeLat, lng: homeLong }), []);
     return (
         <div className="map-wrapper">
             {!isLoaded ? (
