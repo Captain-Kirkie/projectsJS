@@ -28,12 +28,14 @@ const AuthenticateStravaWithOAuth = () => {
 // class StravaManager {
 const getAllActivities = async () => {
     const test = "https://www.strava.com/api/v3/athletes/62304200/activities";
+    debugger;
     const response = await fetch(test, {
         method: "GET",
         headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json",
-            Authorization: "Bearer " + OAUTH_ACCESS_TOKEN.access_token,
+            Authorization:
+                "Bearer " + localStorage.getItem("oauth_access_token"),
         },
     });
 
