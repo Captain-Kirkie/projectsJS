@@ -61,6 +61,52 @@ const drawLine = (cords) => {
     activityPath.setMap(map);
 };
 
+const drawAllLines = (activities) => {
+    debugger;
+
+    const map = new window.google.maps.Map(
+        document.getElementById("google-map-strava"),
+        {
+            zoom: 10,
+            center: { lat: 40.748054511597054, lng: slcLong },
+            mapTypeId: "terrain",
+        }
+    );
+    let allLines = [];
+    for (let act of activities) {
+        const decoded = polyline.decode(act.map.summary_polyline);
+        let activityCordinates = [];
+        for (let cord of decoded) {
+            console.log(cord);
+            const lat = cord[0];
+            const long = cord[1];
+            const point = new window.google.maps.LatLng(lat, long);
+            activityCordinates.push(point);
+        }
+        var activityPath = new window.google.maps.Polyline({
+            path: activityCordinates,
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+        });
+
+        allLines.push(activityPath);
+    }
+
+    // var activityPath = new window.google.maps.Polyline({
+    //     path: allActivities,
+    //     geodesic: true,
+    //     strokeColor: "#FF0000",
+    //     strokeOpacity: 1.0,
+    //     strokeWeight: 2,
+    // });
+    for (let line of allLines) {
+        line.setMap(map);
+    }
+    // activityPath.setMap(map);
+};
+
 // class StravaManager {
 const getAllActivities = async () => {
     const test = "https://www.strava.com/api/v3/athletes/62304200/activities";
@@ -77,9 +123,10 @@ const getAllActivities = async () => {
 
     const json = await response.json();
     console.log(json);
+
     const result = polyline.decode(json[0].map.summary_polyline);
     console.log(result);
-    drawLine(result);
+    drawAllLines(json);
 
     return json;
 };
