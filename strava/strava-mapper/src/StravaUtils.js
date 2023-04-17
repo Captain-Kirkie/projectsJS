@@ -1,3 +1,6 @@
+import { google } from "@react-google-maps/api";
+const polyline = require("@mapbox/polyline");
+
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
@@ -6,6 +9,7 @@ const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 const KIRK_ID = process.env.REACT_APP_KIRK_ID;
 const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
 const ATHLETES_ENDPOINT = `https://www.strava.com/api/v3/athletes/${KIRK_ID}`;
+
 let OAUTH_ACCESS_TOKEN = null;
 // curl -X POST https://www.strava.com/oauth/token \
 // -F client_id=YOURCLIENTID \
@@ -41,6 +45,9 @@ const getAllActivities = async () => {
 
     const json = await response.json();
     console.log(json);
+    const result = polyline.decode(json[0].map.summary_polyline);
+    console.log(result);
+
     return json;
 };
 // }
