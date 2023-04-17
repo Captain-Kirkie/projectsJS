@@ -20,7 +20,10 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
-                <Route path="/test" element={<Test />}></Route>
+                <Route
+                    path="/authExchange/exchange_token/"
+                    element={<Test />}
+                ></Route>
             </Routes>
         </BrowserRouter>
     );

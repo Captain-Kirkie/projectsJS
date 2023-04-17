@@ -12,15 +12,6 @@ import {
 
 // https://samuelkraft.com/blog/strava-api-with-nextjs
 function Home() {
-    // useEffect(() => {
-    //     getAccessToken().then((response) => {
-    //         debugger;
-    //     });
-    // }, []);
-    // debugger;
-    // if (!authToken) {
-    //     AuthenticateStravaWithOAuth();
-    // }
     return (
         <div className="App">
             <div className="center-horiz">
@@ -41,10 +32,10 @@ function Home() {
                 cssModule={AwesomeButtonStyles}
                 type="secondary"
                 onPress={(event, release) => {
-                    getAccessToken();
+                    AuthenticateStravaWithOAuth();
                 }}
             >
-                Exchange code for token
+                OAuth
             </AwesomeButton>
             {/* <AwesomeButton
                 cssModule={AwesomeButtonStyles}

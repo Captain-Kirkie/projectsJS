@@ -22,7 +22,8 @@ const AuthenticateStravaWithOAuth = () => {
     // redirect to auth page
     // get code
     // exchange code for access token
-    const oAuthUrl = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${window.location.origin}/exchange_token&approval_prompt=force&scope=activity:read_all`;
+    const redirectUri = window.location.origin + "/authExchange";
+    const oAuthUrl = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}/exchange_token&approval_prompt=force&scope=activity:read_all`;
     window.location.replace(oAuthUrl);
 };
 
@@ -53,10 +54,10 @@ const getAllActivities = async () => {
 const getAccessToken = async () => {
     const TOKEN_KEY = "oauth_access_token";
 
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (!!token) {
-        return token;
-    }
+    // const token = localStorage.getItem(TOKEN_KEY);
+    // if (!!token) {
+    //     return token;
+    // }
 
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
@@ -82,7 +83,7 @@ const getAccessToken = async () => {
     const json = await response.json();
     console.log(json);
     localStorage.setItem(TOKEN_KEY, json); // this is bad...
-    return json;
+    // return json;
 };
 
 async function refreshToken() {}
