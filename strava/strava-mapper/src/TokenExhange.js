@@ -7,8 +7,6 @@ function TokenExhange() {
     async function getToken() {
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
-        console.log(code);
-
         const body = JSON.stringify({
             client_id: process.env.REACT_APP_CLIENT_ID,
             client_secret: process.env.REACT_APP_CLIENT_SECRET,
@@ -25,7 +23,6 @@ function TokenExhange() {
             },
             body,
         });
-        debugger;
         const json = await response.json();
         console.log(json);
         localStorage.setItem(TOKEN_KEY, json.access_token); // this is bad...

@@ -1,14 +1,9 @@
 import "./App.css";
-import * as d3 from "d3";
 import { AwesomeButton } from "react-awesome-button";
 import AwesomeButtonStyles from "react-awesome-button/src/styles/styles.scss";
 import React, { useState, useEffect } from "react";
 import GoogleMapWrapper from "./GoogleMapWrapper";
-import {
-    getAccessToken,
-    AuthenticateStravaWithOAuth,
-    getAllActivities,
-} from "./StravaUtils";
+import { AuthenticateStravaWithOAuth, getAllActivities } from "./StravaUtils";
 
 // https://samuelkraft.com/blog/strava-api-with-nextjs
 function Home() {

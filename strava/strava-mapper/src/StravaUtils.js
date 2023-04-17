@@ -2,13 +2,14 @@ const polyline = require("@mapbox/polyline");
 
 const { slcLong } = require("./Constants.js");
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
-const REFRESH_TOKEN = process.env.REACT_APP_REFRESH_TOKEN;
-const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
-const KIRK_ID = process.env.REACT_APP_KIRK_ID;
+// const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+// const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
+// const REFRESH_TOKEN = process.env.REACT_APP_REFRESH_TOKEN;
+// const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
+// const KIRK_ID = process.env.REACT_APP_KIRK_ID;
 const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
-const ATHLETES_ENDPOINT = `https://www.strava.com/api/v3/athletes/${KIRK_ID}`;
+const { SECRET_MANAGER } = require("./Manager");
+// const ATHLETES_ENDPOINT = `https://www.strava.com/api/v3/athletes/${SECRET_MANAGER.KIRK_ID}`;
 
 let OAUTH_ACCESS_TOKEN = null;
 // curl -X POST https://www.strava.com/oauth/token \
@@ -29,7 +30,7 @@ const AuthenticateStravaWithOAuth = () => {
     // get code
     // exchange code for access token
     const redirectUri = window.location.origin + "/authExchange";
-    const oAuthUrl = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}/exchange_token&approval_prompt=force&scope=activity:read_all`;
+    const oAuthUrl = `http://www.strava.com/oauth/authorize?client_id=${SECRET_MANAGER.CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}/exchange_token&approval_prompt=force&scope=activity:read_all`;
     window.location.replace(oAuthUrl);
 };
 // https://stackoverflow.com/questions/19594040/how-to-draw-polylines-on-google-maps-dynamically
@@ -100,7 +101,6 @@ const drawAllLines = (activities) => {
     }
 };
 
-// class StravaManager {
 const getAllActivities = async () => {
     const test = "https://www.strava.com/api/v3/athletes/62304200/activities";
 
@@ -119,7 +119,6 @@ const getAllActivities = async () => {
 
     return json;
 };
-// }
 
 // axchange one time code for access token
 // curl -X POST https://www.strava.com/api/v3/oauth/token
@@ -134,8 +133,8 @@ const getAccessToken = async () => {
     console.log(code);
 
     const body = JSON.stringify({
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
+        client_id: SECRET_MANAGER.CLIENT_ID,
+        client_secret: SECRET_MANAGER.CLIENT_SECRET,
         code: code,
         grant_type: "authorization_code",
     });
@@ -154,8 +153,8 @@ const getAccessToken = async () => {
     localStorage.setItem(TOKEN_KEY, json); // this is bad...
 };
 
-class StravaPathManager {}
-
-async function refreshToken() {}
+async function refreshToken() {
+    //TODO
+}
 
 export { AuthenticateStravaWithOAuth, getAccessToken, getAllActivities };
