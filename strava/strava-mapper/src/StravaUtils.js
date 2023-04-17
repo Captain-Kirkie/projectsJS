@@ -21,7 +21,11 @@ let OAUTH_ACCESS_TOKEN = null;
 
 // https://amazonwebshark.com/authenticating-strava-api-calls-oauth-visual-studio-code/
 // http://localhost:3000/exchange_token?state=&code=ab74533370a184ceef270ccfd48cdd2d59f59993&scope=read,activity:read_all
-
+const randomColor = () => {
+    return (
+        "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0")
+    );
+};
 const AuthenticateStravaWithOAuth = () => {
     // redirect to auth page
     // get code
@@ -77,16 +81,15 @@ const drawAllLines = (activities) => {
         const decoded = polyline.decode(act.map.summary_polyline);
         let activityCordinates = [];
         for (let cord of decoded) {
-            console.log(cord);
             const lat = cord[0];
             const long = cord[1];
             const point = new window.google.maps.LatLng(lat, long);
             activityCordinates.push(point);
         }
-        var activityPath = new window.google.maps.Polyline({
+        const activityPath = new window.google.maps.Polyline({
             path: activityCordinates,
             geodesic: true,
-            strokeColor: "#FF0000",
+            strokeColor: randomColor(),
             strokeOpacity: 1.0,
             strokeWeight: 2,
         });
@@ -94,17 +97,9 @@ const drawAllLines = (activities) => {
         allLines.push(activityPath);
     }
 
-    // var activityPath = new window.google.maps.Polyline({
-    //     path: allActivities,
-    //     geodesic: true,
-    //     strokeColor: "#FF0000",
-    //     strokeOpacity: 1.0,
-    //     strokeWeight: 2,
-    // });
     for (let line of allLines) {
         line.setMap(map);
     }
-    // activityPath.setMap(map);
 };
 
 // class StravaManager {
@@ -120,12 +115,8 @@ const getAllActivities = async () => {
                 "Bearer " + localStorage.getItem("oauth_access_token"),
         },
     });
-
     const json = await response.json();
     console.log(json);
-
-    const result = polyline.decode(json[0].map.summary_polyline);
-    console.log(result);
     drawAllLines(json);
 
     return json;
