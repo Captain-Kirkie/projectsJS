@@ -2,16 +2,9 @@ const polyline = require("@mapbox/polyline");
 
 const { slcLong } = require("./Constants.js");
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
-// const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
-// const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
-// const REFRESH_TOKEN = process.env.REACT_APP_REFRESH_TOKEN;
-// const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
-// const KIRK_ID = process.env.REACT_APP_KIRK_ID;
+
 const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
 const { SECRET_MANAGER } = require("./Manager");
-// const ATHLETES_ENDPOINT = `https://www.strava.com/api/v3/athletes/${SECRET_MANAGER.KIRK_ID}`;
-
-let OAUTH_ACCESS_TOKEN = null;
 // curl -X POST https://www.strava.com/oauth/token \
 // -F client_id=YOURCLIENTID \
 // -F client_secret=YOURCLIENTSECRET \
@@ -102,9 +95,10 @@ const drawAllLines = (activities) => {
 };
 
 const getAllActivities = async () => {
-    const test = "https://www.strava.com/api/v3/athletes/62304200/activities";
+    console.log(process.env.REACT_APP_BASE_STRAVA_URI);
+    const uri = `${process.env.REACT_APP_BASE_STRAVA_URI}/api/v3/athletes/${SECRET_MANAGER.KIRK_ID}/activities`;
 
-    const response = await fetch(test, {
+    const response = await fetch(uri, {
         method: "GET",
         headers: {
             Accept: "application/json, text/plain, */*",
@@ -116,7 +110,6 @@ const getAllActivities = async () => {
     const json = await response.json();
     console.log(json);
     drawAllLines(json);
-
     return json;
 };
 

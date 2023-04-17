@@ -1,9 +1,11 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useMemo } from "react";
+const { SECRET_MANAGER } = require("./Manager");
 
 function GoogleMapWrapper() {
+    console.log(`google ${SECRET_MANAGER.GOOGLE_API_KEY}`);
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+        googleMapsApiKey: SECRET_MANAGER.GOOGLE_API_KEY,
     });
     const slcLat = 40.748054511597054;
     const slcLong = -111.95898378502793;

@@ -1,6 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 const TOKEN_KEY = "oauth_access_token";
+const { SECRET_MANAGER } = require("./Manager");
+
 function TokenExhange() {
     const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
     // React advises to declare the async function directly inside useEffect
@@ -8,8 +10,8 @@ function TokenExhange() {
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
         const body = JSON.stringify({
-            client_id: process.env.REACT_APP_CLIENT_ID,
-            client_secret: process.env.REACT_APP_CLIENT_SECRET,
+            client_id: SECRET_MANAGER.CLIENT_ID,
+            client_secret: SECRET_MANAGER.CLIENT_SECRET,
             code: code,
             grant_type: "authorization_code",
         });
