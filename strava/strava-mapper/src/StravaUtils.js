@@ -1,8 +1,6 @@
-import { GoogleMap } from "@react-google-maps/api";
 const polyline = require("@mapbox/polyline");
 
 const { slcLong } = require("./Constants.js");
-
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
@@ -155,6 +153,8 @@ const getAccessToken = async () => {
     console.log(json);
     localStorage.setItem(TOKEN_KEY, json); // this is bad...
 };
+
+class StravaPathManager {}
 
 async function refreshToken() {}
 
