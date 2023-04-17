@@ -12,7 +12,7 @@ import {
 import Home from "./Home";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Test from "./Test";
+import Test from "./TokenExhange";
 
 // https://samuelkraft.com/blog/strava-api-with-nextjs
 function App() {
