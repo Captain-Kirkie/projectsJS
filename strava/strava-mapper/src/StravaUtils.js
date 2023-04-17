@@ -1,5 +1,3 @@
-import { useSearchParams } from "react-router-dom";
-// const strava = require("strava-v3");
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
@@ -53,12 +51,6 @@ const getAllActivities = async () => {
 //   -d grant_type=authorization_code\
 const getAccessToken = async () => {
     const TOKEN_KEY = "oauth_access_token";
-
-    // const token = localStorage.getItem(TOKEN_KEY);
-    // if (!!token) {
-    //     return token;
-    // }
-
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
     console.log(code);
@@ -79,11 +71,9 @@ const getAccessToken = async () => {
         },
         body,
     });
-    debugger;
     const json = await response.json();
     console.log(json);
     localStorage.setItem(TOKEN_KEY, json); // this is bad...
-    // return json;
 };
 
 async function refreshToken() {}

@@ -2,8 +2,6 @@ import { getAccessToken } from "./StravaUtils";
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 function Test() {
-    // useEffect(getAccessToken);
-    // useEffect(() => {
     const TOKEN_KEY = "oauth_access_token";
     const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
     // React advises to declare the async function directly inside useEffect
@@ -34,14 +32,11 @@ function Test() {
         localStorage.setItem(TOKEN_KEY, json.access_token); // this is bad...
     }
     const token = localStorage.getItem(TOKEN_KEY);
-    // You need to restrict it at some point
-    // This is just dummy code and should be replaced by actual
+
     if (!token) {
         getToken();
     }
-    // }, []);
 
-    // return <h1>kjhkjh</h1>;
     return <Navigate to="/" />;
 }
 export default Test;

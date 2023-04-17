@@ -37,13 +37,6 @@ function Home() {
             >
                 OAuth
             </AwesomeButton>
-            {/* <AwesomeButton
-                cssModule={AwesomeButtonStyles}
-                type="secondary"
-                onPress={(event, release) => {}}
-            >
-                Log in with OAuth
-            </AwesomeButton> */}
         </div>
     );
 }
