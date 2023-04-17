@@ -16,6 +16,7 @@ function GoogleMapWrapper() {
                 <h1>Loading...</h1>
             ) : (
                 <GoogleMap
+                    id="google-map-strava"
                     mapContainerClassName="map-container"
                     center={center}
                     zoom={10}

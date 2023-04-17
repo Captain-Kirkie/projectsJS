@@ -1,5 +1,7 @@
-import { google } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 const polyline = require("@mapbox/polyline");
+
+const { slcLong } = require("./Constants.js");
 
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
@@ -28,11 +30,41 @@ const AuthenticateStravaWithOAuth = () => {
     const oAuthUrl = `http://www.strava.com/oauth/authorize?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${redirectUri}/exchange_token&approval_prompt=force&scope=activity:read_all`;
     window.location.replace(oAuthUrl);
 };
+// https://stackoverflow.com/questions/19594040/how-to-draw-polylines-on-google-maps-dynamically
+const drawLine = (cords) => {
+    debugger;
+
+    const map = new window.google.maps.Map(
+        document.getElementById("google-map-strava"),
+        {
+            zoom: 10,
+            center: { lat: 40.748054511597054, lng: slcLong },
+            mapTypeId: "terrain",
+        }
+    );
+    let activityCordinates = [];
+    for (let cord of cords) {
+        console.log(cord);
+        const lat = cord[0];
+        const long = cord[1];
+        const point = new window.google.maps.LatLng(lat, long);
+        activityCordinates.push(point);
+    }
+
+    var activityPath = new window.google.maps.Polyline({
+        path: activityCordinates,
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+    });
+    activityPath.setMap(map);
+};
 
 // class StravaManager {
 const getAllActivities = async () => {
     const test = "https://www.strava.com/api/v3/athletes/62304200/activities";
-    debugger;
+
     const response = await fetch(test, {
         method: "GET",
         headers: {
@@ -47,6 +79,7 @@ const getAllActivities = async () => {
     console.log(json);
     const result = polyline.decode(json[0].map.summary_polyline);
     console.log(result);
+    drawLine(result);
 
     return json;
 };

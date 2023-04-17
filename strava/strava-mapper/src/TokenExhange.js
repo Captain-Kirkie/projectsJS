@@ -1,8 +1,8 @@
 import { getAccessToken } from "./StravaUtils";
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
+const TOKEN_KEY = "oauth_access_token";
 function Test() {
-    const TOKEN_KEY = "oauth_access_token";
     const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
     // React advises to declare the async function directly inside useEffect
     async function getToken() {
