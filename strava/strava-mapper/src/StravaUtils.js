@@ -1,6 +1,6 @@
 const polyline = require("@mapbox/polyline");
 
-const { slcLong } = require("./Constants.js");
+const { slcLong, slcLat } = require("./Constants.js");
 const url = `http://www.strava.com/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=read`;
 
 const TOKEN_ENDPOINT = "https://www.strava.com/oauth/token";
@@ -34,7 +34,7 @@ const drawLine = (cords) => {
         document.getElementById("google-map-strava"),
         {
             zoom: 10,
-            center: { lat: 40.748054511597054, lng: slcLong },
+            center: { lat: slcLat, lng: slcLong },
             mapTypeId: "terrain",
         }
     );
@@ -64,7 +64,7 @@ const drawAllLines = (activities) => {
         document.getElementById("google-map-strava"),
         {
             zoom: 10,
-            center: { lat: 40.748054511597054, lng: slcLong },
+            center: { lat: slcLat, lng: slcLong },
             mapTypeId: "terrain",
         }
     );
