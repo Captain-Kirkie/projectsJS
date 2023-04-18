@@ -306,6 +306,7 @@ const getAllActivities = async () => {
         },
     });
     const json = await response.json();
+    ACTIVITIES.push(...json);
     console.log(json);
     drawAllLines(json);
     return json;
